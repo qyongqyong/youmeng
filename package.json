@@ -8,6 +8,9 @@
     "build": "npm run build --workspace @youmeng/web",
     "typecheck": "npm run typecheck --workspace @youmeng/api && npm run typecheck --workspace @youmeng/web"
   },
+  "engines": {
+    "node": ">=20"
+  },
   "devDependencies": {
     "concurrently": "^9.1.2"
   }
