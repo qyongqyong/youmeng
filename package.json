@@ -1,0 +1,14 @@
+{
+  "name": "youmeng",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace @youmeng/api\" \"npm run dev --workspace @youmeng/web\"",
+    "build": "npm run build --workspace @youmeng/web",
+    "typecheck": "npm run typecheck --workspace @youmeng/api && npm run typecheck --workspace @youmeng/web"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
