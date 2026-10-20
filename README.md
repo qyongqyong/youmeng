@@ -14,6 +14,16 @@ npm run dev
 - Web：http://localhost:5173
 - API：http://localhost:3001
 
+## 远程部署
+
+### Vercel
+
+将仓库导入 Vercel，项目根目录保持仓库根目录，配置 `VITE_API_BASE_URL` 为 Railway API 的公开域名。仓库中的 `vercel.json` 已配置 Web 构建命令和输出目录。
+
+### Railway
+
+从同一个 GitHub 仓库创建服务，使用仓库根目录。仓库中的 `railway.json` 已配置 API 构建、启动和健康检查。Railway 生成公开域名后，将它填入 Vercel 的 `VITE_API_BASE_URL`，再重新部署 Web。
+
 ## 当前范围
 
 - 公开梦境流，默认所有内容公开
