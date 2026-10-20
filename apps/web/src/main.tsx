@@ -24,8 +24,9 @@ const postsSlice = createSlice({
 });
 const store = configureStore({ reducer: { posts: postsSlice.reducer } });
 type RootState = ReturnType<typeof store.getState>;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '';
 const api = async <T,>(path: string, init?: RequestInit): Promise<T> => {
-  const response = await fetch(path, { headers: { 'Content-Type': 'application/json' }, ...init });
+  const response = await fetch(`${API_BASE_URL}${path}`, { headers: { 'Content-Type': 'application/json' }, ...init });
   if (!response.ok) throw new Error((await response.json()).message ?? '请求失败');
   return response.json();
 };
