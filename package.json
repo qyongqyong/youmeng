@@ -2,6 +2,9 @@
   "name": "youmeng",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "pnpm run --parallel --filter @youmeng/web --filter @youmeng/server dev",
     "dev:web": "pnpm --filter @youmeng/web dev",
