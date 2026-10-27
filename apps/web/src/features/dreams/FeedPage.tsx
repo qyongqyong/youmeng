@@ -66,7 +66,7 @@ export default function FeedPage() {
             <Icon name="sparkles" size={16} /> AI 梦境生成 · 梦圈公开分享
           </div>
           <h1 className="hero-title">
-            把梦境，变成<span className="grad-text">看得见的画面</span>
+            有梦，有故事。<span className="grad-text">把梦境照进现实</span>
           </h1>
           <p className="hero-sub">
             用文字记录你的梦，AI 为你生成配图；较长的梦境，还可以生成短视频。
