@@ -264,6 +264,222 @@ button {
   color: var(--text-muted);
 }
 
+.hero-expanded {
+  min-height: 360px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  align-items: center;
+  gap: 34px;
+  text-align: left;
+  padding: 42px 12px 34px;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-expanded .hero-cta {
+  justify-content: flex-start;
+}
+
+.hero-orbit {
+  position: relative;
+  height: 278px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(196, 181, 253, 0.16);
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(139, 92, 246, 0.32), transparent 25%),
+    linear-gradient(145deg, rgba(139, 92, 246, 0.16), rgba(34, 211, 238, 0.06));
+  box-shadow: inset 0 0 45px rgba(139, 92, 246, 0.12), 0 20px 55px rgba(0, 0, 0, 0.18);
+}
+
+.orbit-glow {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: #a78bfa;
+  opacity: 0.13;
+  filter: blur(26px);
+}
+
+.orbit-ring {
+  position: absolute;
+  width: 205px;
+  height: 74px;
+  border: 1px solid rgba(221, 214, 254, 0.25);
+  border-radius: 50%;
+  transform: rotate(-28deg);
+}
+
+.ring-two {
+  width: 245px;
+  height: 110px;
+  transform: rotate(32deg);
+  border-color: rgba(125, 211, 252, 0.2);
+}
+
+.orbit-moon {
+  position: relative;
+  z-index: 2;
+  width: 92px;
+  height: 92px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(145deg, #a78bfa, #6366f1);
+  box-shadow: 0 0 0 10px rgba(167, 139, 250, 0.08), 0 0 55px rgba(167, 139, 250, 0.7);
+}
+
+.orbit-star {
+  position: absolute;
+  color: #f0abfc;
+  font-size: 22px;
+  animation: twinkle 2.8s ease-in-out infinite;
+}
+
+.star-one { top: 54px; left: 54px; }
+.star-two { right: 52px; bottom: 66px; color: #7dd3fc; animation-delay: 1s; }
+
+.orbit-caption {
+  position: absolute;
+  bottom: 22px;
+  color: #d8d2ef;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.45; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.pulse-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 0 0 28px;
+}
+
+.pulse-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 11px;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.pulse-icon {
+  grid-row: span 2;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  color: #c4b5fd;
+  border-radius: 12px;
+  background: rgba(139, 92, 246, 0.16);
+}
+
+.pulse-icon.pink { color: #f9a8d4; background: rgba(244, 114, 182, 0.12); }
+.pulse-icon.cyan { color: #7dd3fc; background: rgba(125, 211, 252, 0.12); }
+.pulse-card div { display: flex; align-items: baseline; gap: 8px; }
+.pulse-card strong { font-size: 22px; }
+.pulse-card div span { font-size: 12px; color: var(--text-muted); }
+.pulse-card small { color: var(--text-muted); font-size: 11px; margin-top: 3px; }
+
+.how-it-works,
+.featured-section {
+  margin-bottom: 36px;
+}
+
+.section-kicker {
+  display: block;
+  color: #a78bfa;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: 13px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--line);
+}
+
+.step {
+  display: flex;
+  gap: 13px;
+  padding: 17px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.step > span {
+  color: #f0abfc;
+  font-size: 12px;
+  font-weight: 700;
+  padding-top: 2px;
+}
+
+.step strong { font-size: 14px; }
+.step p { margin: 5px 0 0; color: var(--text-muted); font-size: 12px; line-height: 1.6; }
+
+.section-heading,
+.feed-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.section-heading h2,
+.feed-heading h2 {
+  margin: 4px 0 0;
+  font-size: 21px;
+}
+
+.section-note { color: var(--text-muted); font-size: 12px; }
+
+.featured-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.featured-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.035);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.featured-item:hover { border-color: rgba(139, 92, 246, 0.55); transform: translateY(-2px); }
+.featured-index { color: #a78bfa; font-size: 12px; font-weight: 700; }
+.featured-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; font-size: 13px; }
+.featured-likes { display: inline-flex; align-items: center; gap: 3px; color: #f9a8d4; font-size: 11px; }
+
+.feed-heading { flex: 1; }
+.feed-controls { display: flex; align-items: center; gap: 12px; }
+
 /* ---------- toolbar ---------- */
 .feed-toolbar {
   display: flex;
@@ -1168,6 +1384,54 @@ button {
   .hero {
     padding: 20px 0 22px;
   }
+
+  .hero-expanded {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    min-height: 0;
+    padding: 24px 0 28px;
+  }
+
+  .hero-expanded .hero-cta {
+    justify-content: center;
+  }
+
+  .hero-orbit {
+    height: 190px;
+    border-radius: 24px;
+  }
+
+  .orbit-moon { width: 68px; height: 68px; }
+  .orbit-moon svg { width: 30px; height: 30px; }
+  .orbit-ring { width: 170px; height: 60px; }
+  .ring-two { width: 200px; height: 86px; }
+  .orbit-caption { bottom: 14px; }
+
+  .pulse-grid,
+  .steps,
+  .featured-row {
+    grid-template-columns: 1fr;
+  }
+
+  .pulse-grid { gap: 8px; }
+  .pulse-card { padding: 13px; }
+  .how-it-works, .featured-section { margin-bottom: 28px; }
+
+  .section-heading,
+  .feed-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .section-note { margin-top: -10px; }
+
+  .feed-controls {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .feed-controls .tabs { align-self: flex-start; }
 
   .detail {
     grid-template-columns: 1fr;
