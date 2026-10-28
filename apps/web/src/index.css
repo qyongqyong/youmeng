@@ -1032,7 +1032,8 @@ button {
 }
 
 .field input,
-.field textarea {
+.field textarea,
+.field select {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -1045,8 +1046,29 @@ button {
   transition: border-color 0.15s ease;
 }
 
+.field select {
+  appearance: none;
+  min-height: 44px;
+  padding-right: 38px;
+  cursor: pointer;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #9d95bd 50%),
+    linear-gradient(135deg, #9d95bd 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 19px,
+    calc(100% - 13px) 19px;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.field select option {
+  color: #ece9f7;
+  background: #1b1630;
+}
+
 .field input:focus,
-.field textarea:focus {
+.field textarea:focus,
+.field select:focus {
   border-color: rgba(139, 92, 246, 0.65);
   background: rgba(139, 92, 246, 0.06);
 }
@@ -1250,7 +1272,6 @@ button {
 
 .profile-form-grid { display: grid; grid-template-columns: 1fr 180px; gap: 14px; margin-bottom: 15px; }
 .field span { display: flex; justify-content: space-between; align-items: center; }
-.field select { appearance: none; }
 .editor-actions { display: flex; justify-content: flex-end; gap: 9px; margin-top: 16px; }
 
 .stat-grid {
