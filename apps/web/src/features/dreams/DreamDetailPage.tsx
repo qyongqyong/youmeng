@@ -1,4 +1,5 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import type { Dream } from '@youmeng/shared';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { toggleLike } from './dreamsSlice';
 import { pushToast } from '../ui/uiSlice';
@@ -8,6 +9,21 @@ import { copyText, dreamShareUrl } from '../../lib/share';
 import Icon from '../../components/Icon';
 import EmptyState from '../../components/EmptyState';
 import CommentSection from './CommentSection';
+import DreamCard from './DreamCard';
+
+function readingFor(dream: Dream) {
+  const tags = dream.tags.join('、');
+  if (dream.tags.some((tag) => ['运动', '偶像'].includes(tag))) {
+    return `这场梦充满了行动力和期待感。${tags} 代表你正在靠近一个想实现的目标，也许是想赢下一场比赛，也许是想在某个重要时刻证明自己。`;
+  }
+  if (dream.tags.some((tag) => ['深海', '星空', '极地'].includes(tag))) {
+    return `你似乎在梦里寻找更大的世界。${tags} 带着探索和自由的意味，安静下来时，你的想象力会带你去很远的地方。`;
+  }
+  if (dream.tags.some((tag) => ['童年', '治愈', '花海'].includes(tag))) {
+    return `这是一场温柔的梦。${tags} 像是一封写给自己的信，提醒你保留柔软，也给忙碌的生活留一点可以呼吸的空间。`;
+  }
+  return `这场梦像一段还没有结束的故事。${tags || '独特的想象'} 让它拥有自己的颜色，也许你正在期待一个新的开始。`;
+}
 
 export default function DreamDetailPage() {
   const { id } = useParams();
@@ -37,6 +53,16 @@ export default function DreamDetailPage() {
   }
 
   const asset = dream.assets[0];
+  const related = useAppSelector((state) =>
+    state.dreams.items
+      .filter(
+        (item) =>
+          item.id !== dream.id &&
+          item.status === 'published' &&
+          item.tags.some((tag) => dream.tags.includes(tag)),
+      )
+      .slice(0, 3),
+  );
 
   return (
     <div className="detail-page">
@@ -127,9 +153,38 @@ export default function DreamDetailPage() {
             </button>
           </div>
 
+          <section className="reading-card">
+            <div className="reading-head">
+              <div>
+                <span className="section-kicker">Dream reading</span>
+                <h2>梦境解读</h2>
+              </div>
+              <span className="reading-badge"><Icon name="sparkles" size={13} /> AI 灵感</span>
+            </div>
+            <div className="emotion-row">
+              <span className="emotion-label">梦境能量</span>
+              <span className="energy-track"><i /></span>
+              <span className="energy-value">温柔探索</span>
+            </div>
+            <p>{readingFor(dream)}</p>
+            <small>仅供娱乐与自我记录，不构成心理或医疗建议。</small>
+          </section>
+
           <CommentSection dreamId={dream.id} />
         </div>
       </article>
+
+      {related.length > 0 && (
+        <section className="related-section">
+          <div className="section-heading">
+            <div><span className="section-kicker">More dreams</span><h2>相似的梦</h2></div>
+            <span className="section-note">也许你会喜欢这些故事</span>
+          </div>
+          <div className="dream-grid related-grid">
+            {related.map((item) => <DreamCard key={item.id} dream={item} />)}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

@@ -7,6 +7,13 @@ import { pushToast } from '../ui/uiSlice';
 import { spendCredit } from '../auth/authSlice';
 import Icon from '../../components/Icon';
 
+const inspirationPrompts = [
+  '我梦见自己去了一个从未去过的地方',
+  '我梦见和喜欢的人在海边散步',
+  '我梦见参加了一场奇妙的演唱会',
+  '我梦见回到了小时候的家',
+];
+
 export default function ComposePage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -65,6 +72,19 @@ export default function ComposePage() {
       </div>
 
       <div className="compose-card">
+        <div className="inspiration-block">
+          <div className="inspiration-head">
+            <span><Icon name="sparkles" size={15} /> 没有灵感？从一句话开始</span>
+            <small>点击填入</small>
+          </div>
+          <div className="inspiration-list">
+            {inspirationPrompts.map((prompt) => (
+              <button key={prompt} type="button" onClick={() => setContent(prompt)}>
+                {prompt}
+              </button>
+            ))}
+          </div>
+        </div>
         <label className="field">
           <span>梦境描述</span>
           <textarea
@@ -82,6 +102,10 @@ export default function ComposePage() {
               ? '这篇会被额外生成短视频'
               : `超过 ${LONG_DREAM_THRESHOLD} 字可生成短视频`}
           </span>
+        </div>
+
+        <div className="public-note">
+          <Icon name="moon" size={15} /> 发布后将公开展示在梦圈，和大家分享你的故事。
         </div>
 
         <div className="compose-foot">

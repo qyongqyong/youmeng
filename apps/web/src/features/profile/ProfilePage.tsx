@@ -25,6 +25,7 @@ export default function ProfilePage() {
   const [gender, setGender] = useState<'male' | 'female' | 'unknown'>('unknown');
   const [avatar, setAvatar] = useState('🌙');
   const [bio, setBio] = useState('');
+  const [activeList, setActiveList] = useState<'mine' | 'liked'>('mine');
 
   const beginEditing = () => {
     setNickname(user?.nickname ?? '');
@@ -82,7 +83,9 @@ export default function ProfilePage() {
   }
 
   const mine = items.filter((d) => d.userId === user.id);
+  const liked = items.filter((d) => likedIds.includes(d.id));
   const likesReceived = mine.reduce((sum, d) => sum + d.likeCount, 0);
+  const visibleDreams = activeList === 'mine' ? mine : liked;
 
   return (
     <div className="profile-page">
@@ -153,17 +156,26 @@ export default function ProfilePage() {
       </section>
 
       <section className="profile-dreams">
-        <h2 className="section-title">我的梦境</h2>
-        {mine.length === 0 ? (
+        <div className="profile-list-head">
+          <div>
+            <span className="section-kicker">My dream library</span>
+            <h2 className="section-title">梦境收藏夹</h2>
+          </div>
+          <div className="profile-tabs">
+            <button type="button" className={activeList === 'mine' ? 'profile-tab active' : 'profile-tab'} onClick={() => setActiveList('mine')}>我的梦境 <small>{mine.length}</small></button>
+            <button type="button" className={activeList === 'liked' ? 'profile-tab active' : 'profile-tab'} onClick={() => setActiveList('liked')}>喜欢的梦 <small>{liked.length}</small></button>
+          </div>
+        </div>
+        {visibleDreams.length === 0 ? (
           <div className="gate slim">
-            <p>还没有发布过梦境。</p>
-            <Link to="/compose" className="btn primary">
-              去发布第一个
+            <p>{activeList === 'mine' ? '还没有发布过梦境。' : '还没有喜欢过梦境。'}</p>
+            <Link to={activeList === 'mine' ? '/compose' : '/'} className="btn primary">
+              {activeList === 'mine' ? '去发布第一个' : '去梦圈逛逛'}
             </Link>
           </div>
         ) : (
           <div className="dream-grid">
-            {mine.map((dream) => (
+            {visibleDreams.map((dream) => (
               <DreamCard key={dream.id} dream={dream} />
             ))}
           </div>
