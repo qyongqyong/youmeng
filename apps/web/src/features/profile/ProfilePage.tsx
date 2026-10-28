@@ -26,6 +26,13 @@ export default function ProfilePage() {
   const [avatar, setAvatar] = useState('🌙');
   const [bio, setBio] = useState('');
   const [activeList, setActiveList] = useState<'mine' | 'liked'>('mine');
+  const [checkedIn, setCheckedIn] = useState(() => {
+    try {
+      return localStorage.getItem('youmeng:checkin') === new Date().toDateString();
+    } catch {
+      return false;
+    }
+  });
 
   const beginEditing = () => {
     setNickname(user?.nickname ?? '');
@@ -86,6 +93,24 @@ export default function ProfilePage() {
   const liked = items.filter((d) => likedIds.includes(d.id));
   const likesReceived = mine.reduce((sum, d) => sum + d.likeCount, 0);
   const visibleDreams = activeList === 'mine' ? mine : liked;
+  const preferenceTags = Array.from(
+    mine.reduce((counts, dream) => {
+      dream.tags.forEach((tag) => counts.set(tag, (counts.get(tag) ?? 0) + 1));
+      return counts;
+    }, new Map<string, number>()),
+  )
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 4);
+
+  const checkIn = () => {
+    try {
+      localStorage.setItem('youmeng:checkin', new Date().toDateString());
+    } catch {
+      // 忽略隐私模式下的存储限制
+    }
+    setCheckedIn(true);
+    dispatch(pushToast({ text: '今日梦境记录已打卡，继续保持 ✨', type: 'success' }));
+  };
 
   return (
     <div className="profile-page">
@@ -152,6 +177,31 @@ export default function ProfilePage() {
         <div className="stat">
           <span className="stat-num">{likedIds.length}</span>
           <span className="stat-label">点过喜欢</span>
+        </div>
+      </section>
+
+      <section className="profile-insights">
+        <div className="checkin-card">
+          <div className="insight-icon"><Icon name="sparkles" size={18} /></div>
+          <div className="insight-copy">
+            <span className="section-kicker">Dream habit</span>
+            <h3>今天也来记录一个梦</h3>
+            <p>{checkedIn ? '今天的梦已经被你认真收藏。' : '连续记录，慢慢看见自己的梦境轨迹。'}</p>
+          </div>
+          <button type="button" className={checkedIn ? 'btn small checked' : 'btn primary small'} onClick={checkIn} disabled={checkedIn}>
+            {checkedIn ? '已打卡' : '今日打卡'}
+          </button>
+        </div>
+        <div className="preference-card">
+          <div className="insight-copy">
+            <span className="section-kicker">Your atmosphere</span>
+            <h3>我的梦境偏好</h3>
+          </div>
+          {preferenceTags.length > 0 ? (
+            <div className="preference-tags">
+              {preferenceTags.map(([tag, count]) => <span key={tag}>#{tag}<b>{count}</b></span>)}
+            </div>
+          ) : <p className="preference-empty">发布梦境后，这里会出现你的专属主题。</p>}
         </div>
       </section>
 
