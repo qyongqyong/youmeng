@@ -10,6 +10,7 @@
     "dev": "pnpm run --parallel --filter @youmeng/web --filter @youmeng/server dev",
     "dev:web": "pnpm --filter @youmeng/web dev",
     "dev:server": "pnpm --filter @youmeng/server dev",
+    "start": "pnpm --filter @youmeng/server start",
     "build": "pnpm -r build"
   }
 }
