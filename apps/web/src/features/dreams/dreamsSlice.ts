@@ -43,7 +43,12 @@ interface PersistedDreams {
 function loadInitialState(): DreamsState {
   const persisted = loadJSON<Partial<PersistedDreams>>(STORAGE_KEY, {});
   // 若上次刷新时正处于「生成中」，这里补齐为已发布，避免出现卡住的卡片
-  const items = (persisted.items ?? mockDreams).map((dream) =>
+  const savedItems = persisted.items ?? [];
+  const savedIds = new Set(savedItems.map((dream) => dream.id));
+  const seedItems = savedItems.length
+    ? [...savedItems, ...mockDreams.filter((dream) => !savedIds.has(dream.id))]
+    : mockDreams;
+  const items = seedItems.map((dream) =>
     dream.status === 'generating'
       ? {
           ...dream,
