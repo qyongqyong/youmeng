@@ -6,6 +6,7 @@ import DreamDetailPage from './features/dreams/DreamDetailPage';
 import ComposePage from './features/dreams/ComposePage';
 import ProfilePage from './features/profile/ProfilePage';
 import LoginPage from './features/auth/LoginPage';
+import InsightsPage from './features/insights/InsightsPage';
 
 function NotFound() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="dream/:id" element={<DreamDetailPage />} />
           <Route path="compose" element={<ComposePage />} />
           <Route path="me" element={<ProfilePage />} />
+          <Route path="insights" element={<InsightsPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>

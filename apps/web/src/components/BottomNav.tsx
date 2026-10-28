@@ -5,6 +5,7 @@ const items: { to: string; label: string; icon: IconName }[] = [
   { to: '/', label: '梦圈', icon: 'moon' },
   { to: '/compose', label: '发布', icon: 'sparkles' },
   { to: '/me', label: '我的', icon: 'user' },
+  { to: '/insights', label: '报告', icon: 'sparkles' },
 ];
 
 export default function BottomNav() {

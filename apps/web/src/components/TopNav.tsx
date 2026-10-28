@@ -5,6 +5,7 @@ import Icon from './Icon';
 const links = [
   { to: '/', label: '梦圈' },
   { to: '/compose', label: '发布' },
+  { to: '/insights', label: '梦境报告' },
   { to: '/me', label: '我的' },
 ];
 

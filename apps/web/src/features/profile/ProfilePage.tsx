@@ -205,6 +205,12 @@ export default function ProfilePage() {
         </div>
       </section>
 
+      <Link to="/insights" className="profile-report-banner">
+        <span className="report-banner-icon"><Icon name="sparkles" size={19} /></span>
+        <span><small>PERSONAL DREAM REPORT</small><strong>查看我的梦境报告</strong><em>主题、节奏与最近的梦，都整理好了</em></span>
+        <b>→</b>
+      </Link>
+
       <section className="profile-dreams">
         <div className="profile-list-head">
           <div>
