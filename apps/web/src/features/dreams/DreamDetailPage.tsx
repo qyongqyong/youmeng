@@ -7,6 +7,7 @@ import { formatCount, formatRelativeTime } from '../../lib/time';
 import { displayTitle } from '../../lib/dream';
 import { copyText, dreamShareUrl } from '../../lib/share';
 import Icon from '../../components/Icon';
+import { assetUrl } from '../../lib/assetUrl';
 import EmptyState from '../../components/EmptyState';
 import CommentSection from './CommentSection';
 import DreamCard from './DreamCard';
@@ -74,7 +75,7 @@ export default function DreamDetailPage() {
         <div className="detail-visual">
           {asset ? (
             <img
-              src={asset.poster ?? asset.url}
+              src={assetUrl(asset.poster ?? asset.url)}
               alt={displayTitle(dream)}
               className={asset.type === 'video' ? 'clickable' : ''}
               onClick={() => {

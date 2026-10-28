@@ -12,7 +12,7 @@ export class DreamsController {
   }
 
   @Post('dreams')
-  createDream(@Body() body: { content: string }) {
+  async createDream(@Body() body: { content: string; userId?: string; nickname?: string }) {
     return this.dreamsService.createDream(body);
   }
 }

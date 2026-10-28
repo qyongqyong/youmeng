@@ -7,3 +7,7 @@ build/
 *.log
 .DS_Store
 coverage/
+
+# Local AI-generated assets and dream records. Production should use OSS + database.
+apps/server/storage/generated/
+apps/server/data/dreams.json

@@ -7,7 +7,7 @@ import Icon from '../../components/Icon';
 import EmptyState from '../../components/EmptyState';
 import DreamCard from './DreamCard';
 import SkeletonCard from './SkeletonCard';
-import { setSearch, setTab, type FeedTab } from './dreamsSlice';
+import { hydrateDreams, setSearch, setTab, type FeedTab } from './dreamsSlice';
 
 export default function FeedPage() {
   const dispatch = useAppDispatch();
@@ -19,6 +19,10 @@ export default function FeedPage() {
     const timer = setTimeout(() => setBooting(false), 600);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    dispatch(hydrateDreams());
+  }, [dispatch]);
 
   useEffect(() => {
     setVisibleCount(6);

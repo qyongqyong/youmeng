@@ -6,6 +6,7 @@ import { pushToast } from '../ui/uiSlice';
 import { formatCount, formatRelativeTime } from '../../lib/time';
 import { displayTitle } from '../../lib/dream';
 import { copyText, dreamShareUrl } from '../../lib/share';
+import { assetUrl } from '../../lib/assetUrl';
 import Icon from '../../components/Icon';
 
 export default function DreamCard({ dream }: { dream: Dream }) {
@@ -31,7 +32,7 @@ export default function DreamCard({ dream }: { dream: Dream }) {
         {asset ? (
           <>
             <img
-              src={asset.poster ?? asset.url}
+              src={assetUrl(asset.poster ?? asset.url)}
               alt={displayTitle(dream)}
               loading="lazy"
             />

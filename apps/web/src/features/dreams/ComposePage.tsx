@@ -38,7 +38,7 @@ export default function ComposePage() {
 
   const isLong = content.length > LONG_DREAM_THRESHOLD;
 
-  const submit = () => {
+  const submit = async () => {
     if (!content.trim()) {
       dispatch(pushToast({ text: '请描述你的梦境', type: 'error' }));
       return;
@@ -54,14 +54,18 @@ export default function ComposePage() {
     }
 
     dispatch(spendCredit());
-    dispatch(
-      createDream({
-        content: content.trim(),
-        author: { id: user.id, nickname: user.nickname },
-      }),
-    );
     dispatch(pushToast({ text: '已提交，正在生成梦境配图…', type: 'success' }));
-    navigate('/');
+    try {
+      await dispatch(
+        createDream({
+          content: content.trim(),
+          author: { id: user.id, nickname: user.nickname },
+        }),
+      ).unwrap();
+      navigate('/');
+    } catch (error) {
+      dispatch(pushToast({ text: error instanceof Error ? error.message : '生成失败，请稍后重试', type: 'error' }));
+    }
   };
 
   return (

@@ -121,7 +121,7 @@ your-domain.com {
 
 ## 环境变量说明
 
-- 前端生产构建：`VITE_API_BASE=/api`（已作为 Docker 构建参数默认值，指向 nginx 反向代理）。本地开发默认 `http://localhost:3000`。
+- 前端生产构建：如果 Vercel 和 Railway 是两个域名，Vercel 环境变量设置为 `VITE_API_BASE=https://你的-Railway-域名/api`。图片会自动从同一个 Railway 域名读取；如果前后端同域部署，则继续使用 `/api`。
 - 后端：见 `apps/server/.env.example`。目前这些变量（数据库、阿里云短信、DashScope、可灵）**尚未被代码使用**，等接入真实后端后再填。
 
 ---
@@ -129,6 +129,6 @@ your-domain.com {
 ## 常见问题
 
 - **刷新 `/dream/1` 404**：静态服务器没配 SPA 回退。Nginx 用 `try_files ... /index.html`，其他托管平台开启「404 指向 index.html」。
-- **前端调不到接口**：确认前端 `VITE_API_BASE=/api`，且 Nginx 把 `/api/` 反代到后端。
+- **前端调不到接口**：确认 Vercel 的 `VITE_API_BASE` 包含 Railway 地址和末尾的 `/api`，并重新部署前端。
 - **80 端口被占用**：把 `docker-compose.yml` 的 `"80:80"` 改成 `"8080:80"`，访问 `http://IP:8080`。
 - **本机没有 Docker**：用「方式 C」（Nginx + pm2），或把代码推到一台装了 Docker 的服务器上执行。
