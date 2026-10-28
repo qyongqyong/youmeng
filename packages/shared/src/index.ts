@@ -47,6 +47,8 @@ export interface User {
   phone: string;
   nickname: string;
   avatar?: string;
+  gender?: 'male' | 'female' | 'unknown';
+  bio?: string;
 }
 
 export interface Comment {

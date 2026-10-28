@@ -26,6 +26,9 @@ const authSlice = createSlice({
         id: `u-${phone}`,
         phone,
         nickname: `梦友${phone.slice(-4)}`,
+        avatar: '🌙',
+        gender: 'unknown',
+        bio: '在有梦，记录每一个值得被记住的夜晚。',
       };
       // 新用户赠送 5 次生成额度
       state.credits = Math.max(state.credits, 5);
@@ -33,6 +36,16 @@ const authSlice = createSlice({
     logout(state) {
       state.user = null;
       state.credits = 0;
+    },
+    updateProfile(
+      state,
+      action: PayloadAction<
+        Partial<Pick<User, 'nickname' | 'avatar' | 'gender' | 'bio'>>
+      >,
+    ) {
+      if (state.user) {
+        state.user = { ...state.user, ...action.payload };
+      }
     },
     spendCredit(state) {
       if (state.credits > 0) state.credits -= 1;
@@ -43,5 +56,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { login, logout, spendCredit, setCredits } = authSlice.actions;
+export const { login, logout, updateProfile, spendCredit, setCredits } =
+  authSlice.actions;
 export default authSlice.reducer;

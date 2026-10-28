@@ -1140,6 +1140,13 @@ button {
   border: 1px solid var(--line);
 }
 
+.profile-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
 .profile-avatar {
   width: 64px;
   height: 64px;
@@ -1168,6 +1175,83 @@ button {
   color: var(--text-muted);
   font-size: 13px;
 }
+
+.profile-bio {
+  margin: 8px 0 0;
+  color: #d8d2ef;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.profile-editor {
+  margin: 16px 0 24px;
+  padding: 20px;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: var(--radius);
+  background: rgba(139, 92, 246, 0.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+}
+
+.editor-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.editor-heading h2 {
+  margin: 4px 0 0;
+  font-size: 19px;
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.icon-btn:hover { color: var(--text); background: rgba(255, 255, 255, 0.06); }
+
+.editor-label,
+.field em {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-style: normal;
+}
+
+.avatar-picker { display: flex; align-items: center; gap: 18px; margin-bottom: 18px; }
+.avatar-options { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.avatar-option {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.avatar-option:hover,
+.avatar-option.active {
+  border-color: #a78bfa;
+  background: rgba(139, 92, 246, 0.24);
+  transform: translateY(-2px);
+}
+
+.profile-form-grid { display: grid; grid-template-columns: 1fr 180px; gap: 14px; margin-bottom: 15px; }
+.field span { display: flex; justify-content: space-between; align-items: center; }
+.field select { appearance: none; }
+.editor-actions { display: flex; justify-content: flex-end; gap: 9px; margin-top: 16px; }
 
 .stat-grid {
   display: grid;
@@ -1445,6 +1529,19 @@ button {
   .stat-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .profile-head {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .profile-head-actions {
+    width: 100%;
+    margin-left: 80px;
+  }
+
+  .profile-form-grid { grid-template-columns: 1fr; }
+  .avatar-picker { align-items: flex-start; flex-direction: column; gap: 10px; }
 
   .dream-grid {
     grid-template-columns: 1fr;
