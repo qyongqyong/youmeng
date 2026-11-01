@@ -7,6 +7,9 @@ import ComposePage from './features/dreams/ComposePage';
 import ProfilePage from './features/profile/ProfilePage';
 import LoginPage from './features/auth/LoginPage';
 import InsightsPage from './features/insights/InsightsPage';
+import InspirationPage from './features/inspirations/InspirationPage';
+import InspirationComposePage from './features/inspirations/InspirationComposePage';
+import InspirationDetailPage from './features/inspirations/InspirationDetailPage';
 
 function NotFound() {
   return (
@@ -31,6 +34,9 @@ export default function App() {
           <Route path="compose" element={<ComposePage />} />
           <Route path="me" element={<ProfilePage />} />
           <Route path="insights" element={<InsightsPage />} />
+          <Route path="inspirations" element={<InspirationPage />} />
+          <Route path="inspiration/:id" element={<InspirationDetailPage />} />
+          <Route path="inspiration/compose" element={<InspirationComposePage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>

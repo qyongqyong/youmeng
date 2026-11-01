@@ -3,9 +3,10 @@ import Icon, { type IconName } from './Icon';
 
 const items: { to: string; label: string; icon: IconName }[] = [
   { to: '/', label: '梦圈', icon: 'moon' },
+  { to: '/inspirations', label: '灵感', icon: 'sparkles' },
   { to: '/compose', label: '发布', icon: 'sparkles' },
-  { to: '/me', label: '我的', icon: 'user' },
   { to: '/insights', label: '报告', icon: 'sparkles' },
+  { to: '/me', label: '我的', icon: 'user' },
 ];
 
 export default function BottomNav() {

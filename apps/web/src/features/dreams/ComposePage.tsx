@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { LONG_DREAM_THRESHOLD } from '@youmeng/shared';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { createDream } from './dreamsSlice';
 import { pushToast } from '../ui/uiSlice';
 import { spendCredit } from '../auth/authSlice';
 import Icon from '../../components/Icon';
+import InspirationComposePage from '../inspirations/InspirationComposePage';
+import PublishTabs from '../compose/PublishTabs';
 
 const inspirationPrompts = [
   '我梦见自己去了一个从未去过的地方',
@@ -19,7 +21,17 @@ export default function ComposePage() {
   const navigate = useNavigate();
   const user = useAppSelector((state) => state.auth.user);
   const credits = useAppSelector((state) => state.auth.credits);
+  const [searchParams] = useSearchParams();
   const [content, setContent] = useState('');
+
+  if (searchParams.get('type') === 'inspiration') {
+    return (
+      <div className="compose-page publish-page">
+        <PublishTabs />
+        <InspirationComposePage embedded />
+      </div>
+    );
+  }
 
   if (!user) {
     return (
@@ -69,7 +81,8 @@ export default function ComposePage() {
   };
 
   return (
-    <div className="compose-page">
+    <div className="compose-page publish-page">
+      <PublishTabs />
       <div className="compose-head">
         <h1>发布梦境</h1>
         <p>不用起标题，直接描述你梦见了什么，AI 会为它生成画面。</p>

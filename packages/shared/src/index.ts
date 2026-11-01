@@ -1,6 +1,7 @@
 // 有梦项目：前后端共享类型与常量
 
 export type AssetType = 'image' | 'video';
+export type ContentCategory = 'dream' | 'inspiration';
 
 export interface DreamAsset {
   id: string;
@@ -29,6 +30,7 @@ export interface DreamAuthor {
 export interface Dream {
   id: string;
   userId: string;
+  category?: ContentCategory;
   /** 标题（可选）：用户仅描述梦境，无需填写标题 */
   title?: string;
   content: string;

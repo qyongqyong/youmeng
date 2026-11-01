@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { Dream } from '@youmeng/shared';
+import type { ContentCategory, Dream } from '@youmeng/shared';
 import { WanxiangService } from '../ai/wanxiang.service';
 
 @Injectable()
@@ -37,15 +37,16 @@ export class DreamsService {
     return `/generated/${fileName}`;
   }
 
-  getFeed(): Dream[] {
+  getFeed(category: ContentCategory = 'dream'): Dream[] {
     return this.dreams.filter(
       (dream) =>
+        (dream.category ?? 'dream') === category &&
         !dream.userId.startsWith('seed-') &&
         !dream.assets[0]?.url.startsWith('/previews/'),
     );
   }
 
-  async createDream(body: { content: string; userId?: string; nickname?: string }) {
+  async createDream(body: { content: string; userId?: string; nickname?: string; category?: ContentCategory }) {
     const content = body.content?.trim();
     if (!content) throw new Error('梦境内容不能为空');
     const id = String(Date.now());
@@ -54,6 +55,7 @@ export class DreamsService {
     const dream: Dream = {
       id,
       userId: body.userId ?? 'local-user',
+      category: body.category ?? 'dream',
       content,
       wordCount: content.length,
       status: 'published',

@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import type { Dream } from '@youmeng/shared';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { toggleLike } from './dreamsSlice';
+import { toggleInspirationLike } from '../inspirations/inspirationsSlice';
 import { pushToast } from '../ui/uiSlice';
 import { formatCount, formatRelativeTime } from '../../lib/time';
 import { displayTitle } from '../../lib/dream';
@@ -9,18 +10,18 @@ import { copyText, dreamShareUrl } from '../../lib/share';
 import { assetUrl } from '../../lib/assetUrl';
 import Icon from '../../components/Icon';
 
-export default function DreamCard({ dream }: { dream: Dream }) {
+export default function DreamCard({ dream, collection = 'dreams' }: { dream: Dream; collection?: 'dreams' | 'inspirations' }) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
-  const liked = useAppSelector((state) =>
-    state.dreams.likedIds.includes(dream.id),
-  );
+  const liked = useAppSelector((state) => collection === 'dreams'
+    ? state.dreams.likedIds.includes(dream.id)
+    : state.inspirations.likedIds.includes(dream.id));
   const asset = dream.assets[0];
   const generating = dream.status === 'generating';
 
   const open = () => {
-    if (!generating) navigate(`/dream/${dream.id}`);
+    if (!generating) navigate(collection === 'dreams' ? `/dream/${dream.id}` : `/inspiration/${dream.id}`);
   };
 
   return (
@@ -83,7 +84,7 @@ export default function DreamCard({ dream }: { dream: Dream }) {
                 navigate('/login');
                 return;
               }
-              dispatch(toggleLike(dream.id));
+              dispatch(collection === 'dreams' ? toggleLike(dream.id) : toggleInspirationLike(dream.id));
             }}
           >
             <Icon name={liked ? 'heart-filled' : 'heart'} size={18} />
